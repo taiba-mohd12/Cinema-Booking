@@ -14,13 +14,11 @@ const theater = require('./routes/theater')
 const movie = require('./routes/movie')
 const showtime = require('./routes/showtime')
 
-mongoose.set('strictQuery', false)
-mongoose
-	.connect(process.env.DATABASE, { autoIndex: true })
-	.then(() => {
-		console.log('mongoose connected!')
-	})
-	.catch((err) => console.log(err))
+const uri = "mongodb+srv://mrvortex911:Vortex%4007@vortex.fr0lbf8.mongodb.net/?retryWrites=true&w=majority&appName=vortex";
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Atlas connected'))
+  .catch(err => console.error('Error connecting to MongoDB Atlas:', err));
 
 const app = express()
 
@@ -39,6 +37,6 @@ app.use('/theater', theater)
 app.use('/movie', movie)
 app.use('/showtime', showtime)
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log(`start server in port ${port}`))
